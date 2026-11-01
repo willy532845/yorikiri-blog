@@ -1,0 +1,53 @@
+---
+const { backgroundImage = DEFAULT_POST_IMAGE } = Astro.props;
+
+import { DEFAULT_POST_IMAGE } from "@/consts";
+import { Image } from "astro:assets";
+import config from "@shConfig";
+---
+
+<!-- Hero Section -->
+<section
+  class="relative h-screen max-h-175 overflow-hidden px-4 py-10"
+  transition:name="hero"
+>
+  <!-- Hero background image -->
+  <div class="pointer-events-none absolute inset-0">
+    <Image
+      src={backgroundImage ?? config.style.heroImage.src}
+      inferSize={true}
+      alt=""
+      class={"w-full h-full object-cover bg-fixed" +
+        (config.style.heroImage.method === "mask" ? " bg-linear-to-b" : " z-0")}
+      style={config.style.heroImage.method === "mask"
+        ? `-webkit-mask-image: linear-gradient(to bottom, transparent ${config.style.heroImage.from}%, black ${config.style.heroImage.to}%); mask-image: linear-gradient(to bottom, transparent ${config.style.heroImage.from}%, black ${config.style.heroImage.to}%);`
+        : undefined}
+      width={1920}
+      height={700}
+      fetchpriority="high"
+      loading="eager"
+      quality="mid"
+    />
+    {
+      config.style.heroImage.method === "overlay" && (
+        <div
+          class={`absolute inset-0 z-1 bg-linear-to-b from-black/60 to-black`}
+        />
+      )
+    }
+  </div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 flex h-full items-end justify-center">
+    <div class="w-full md:w-[80vw] md:max-w-7xl md:min-w-3xl">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+        <slot name="left">
+          <!-- Left: Main heading -->
+        </slot>
+        <slot name="right">
+          <!-- Right: Featured article card -->
+        </slot>
+      </div>
+    </div>
+  </div>
+</section>

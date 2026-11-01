@@ -1,0 +1,125 @@
+---
+import { cn } from "@lib/utils";
+import { Folder as FolderIcon } from "@lucide/astro";
+
+interface Props {
+  class?: string;
+  path?: string;
+}
+const { class: className, path } = Astro.props;
+---
+
+<div
+  class={cn(
+    "sh-builtin-components mb-4 relative file-tree-container font-mono text-sm border border-white/10 rounded-lg bg-[#0F0F0F] overflow-hidden",
+    className,
+  )}
+>
+  <!-- 背景裝飾 -->
+  <FolderIcon
+    class="absolute right-2 bottom-2 h-4 w-4 text-gray-500 opacity-20"
+    stroke-width={4}
+    size={48}
+  />
+
+  {
+    path && (
+      <div
+        class="flex items-center justify-start gap-2 border-b border-white/10 px-5 py-3 select-none"
+        title={path}
+      >
+        <FolderIcon size={18} class="text-gray-500" />
+        <span class="sh-builtin-components text-sm text-gray-400">{path}</span>
+      </div>
+    )
+  }
+  <div class={cn("px-5", path ? "pb-5 pt-2" : "py-5")}>
+    <slot />
+  </div>
+</div>
+
+<script is:inline>
+  function initFileTrees() {
+    // 找出所有尚未初始化的 FileTree 容器
+    const containers = document.querySelectorAll(
+      ".file-tree-container:not([data-initialized-enhanced])",
+    );
+
+    containers.forEach((container) => {
+      // 標記為已初始化
+      container.setAttribute("data-initialized-enhanced", "true");
+
+      const controller = new AbortController();
+      const { signal } = controller;
+
+      // 使用事件代理，將點擊事件掛在容器上
+      container.addEventListener(
+        "click",
+        (e) => {
+          const trigger = e.target.closest(".folder-trigger");
+          if (!trigger) return;
+
+          // 阻止冒泡，確保嵌套資料夾不會誤觸父層
+          e.stopPropagation();
+
+          const targetId = trigger.getAttribute("data-target");
+          const target = document.getElementById(targetId);
+          if (!target) return;
+
+          const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+          const chevron = trigger.querySelector(".lucide-chevron-right");
+          const iconClose = trigger.querySelector(".folder-icon-close");
+          const iconOpen = trigger.querySelector(".folder-icon-open");
+
+          if (!isExpanded) {
+            // 展開邏輯
+            target.removeAttribute("hidden");
+            void target.offsetHeight; // 強制 Reflow
+            target.style.maxHeight = "1000px";
+
+            trigger.setAttribute("aria-expanded", "true");
+            if (chevron) chevron.style.transform = "rotate(90deg)";
+            if (iconClose) iconClose.style.opacity = "0";
+            if (iconOpen) iconOpen.style.opacity = "1";
+          } else {
+            // 收合邏輯
+            target.style.maxHeight = "0px";
+            trigger.setAttribute("aria-expanded", "false");
+
+            if (chevron) chevron.style.transform = "rotate(0deg)";
+            if (iconClose) iconClose.style.opacity = "1";
+            if (iconOpen) iconOpen.style.opacity = "0";
+
+            // 等待動畫結束後隱藏
+            setTimeout(() => {
+              if (trigger.getAttribute("aria-expanded") === "false") {
+                target.setAttribute("hidden", "");
+              }
+            }, 300);
+          }
+        },
+        { signal },
+      );
+
+      // 在頁面切換前清理監聽器
+      document.addEventListener(
+        "astro:before-swap",
+        () => {
+          controller.abort();
+        },
+        { once: true },
+      );
+    });
+  }
+
+  // 監聽 astro:page-load 以支援 ClientRouter
+  document.addEventListener("astro:page-load", initFileTrees);
+</script>
+
+<style>
+  /* 這裡的樣式主要是為了確保資料夾內容的動畫效果 */
+  .is-highlighted > [aria-expanded="true"] {
+    /* 如果資料夾本身被高亮，則在展開時保持高亮狀態 */
+    padding-bottom: calc(var(--spacing) * 2);
+  }
+</style>
