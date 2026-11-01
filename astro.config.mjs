@@ -33,7 +33,8 @@ loadEnv();
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || "https://sh-blog-next.vercel.app",
+  site: "https://willy532845.github.io",
+  base: "/yorikiri-blog",
   integrations: [
     expressiveCode(),
     mdx(),

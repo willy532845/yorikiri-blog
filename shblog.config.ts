@@ -423,7 +423,7 @@ import { defineConfig } from "@/utils/define-config";
 //     countryEmoji: "🇹🇼", // 所屬國家國旗Emoji，如台灣國旗🇹🇼等
 //   },
 // };
-
+/*
 const config = defineConfig({
   behavior: {
     commentConfig: {
@@ -446,3 +446,60 @@ const config = defineConfig({
 }); // 使用 defineConfig 函式定義設定，並提供部分覆蓋設定
 
 export default config; // 匯出設定
+*/
+const config = defineConfig({
+  // 網站基本資料
+  title: "Yorikiri's Blog",
+  description: "記錄我平常寫的屎山",
+  lang: "zh-TW",
+  siteLang: "zh_tw",
+
+  // 首頁內容
+  pages: {
+    home: {
+      title: "酪梨萬歲。\nWelcome to Yorikiri's Blog.",
+    },
+    blog: {
+      title: "N/A",
+      subTitle: "Competitive Programming / Robotics ",
+    },
+  },
+
+  // 個人資訊
+  author: {
+    name: "Yorikiri",
+    bio: "高中生，平常就競程和機器人。",
+    links: [
+      {
+        icon: "Github",
+        to: "https://github.com/willy532845",
+        label: "GitHub",
+      },
+    ],
+  },
+
+  // 首頁外觀
+  style: {
+    postsPerPage: 6,
+    enableRecentPosts: true,
+  },
+
+  // 網站功能
+  behavior: {
+    commentConfig: {
+      enableComment: "None",
+    },
+    enableGTM: false,
+  },
+
+  // 頁尾資訊
+  footer: {
+    description: "Yorikiri's Blog\nprogramming · Robotics · Learning",
+    links: [],
+  },
+
+  // 暫時不顯示示範友情連結
+  friendLinks: [],
+});
+
+export default config;
