@@ -457,7 +457,8 @@ const config = defineConfig({
   // 首頁內容
   pages: {
     home: {
-      title: "酪梨萬歲。\nWelcome to Yorikiri's Blog.",
+      title: "早安我是Yorikiri\nWelcome to Yorikiri's Blog.",
+      heroImage: "/assets/layouts/homepage/samhacker_homepage_background.webp",
     },
     blog: {
       title: "N/A",
@@ -468,21 +469,36 @@ const config = defineConfig({
   // 個人資訊
   author: {
     name: "Yorikiri",
-    bio: "高中生，平常就競程和機器人。",
+    bio: "抽象高中生，日常就是競程和機器人。",
     links: [
       {
         icon: "Github",
         to: "https://github.com/willy532845",
         label: "GitHub",
       },
+      {
+        icon: "Instagram",
+        to: "https://www.instagram.com/willy.11_18/",
+        label: "Instagram",
+      },
+      {
+        icon: "Hackmd",
+        to: "https://hackmd.io/@willy532845",
+        label: "HackMD",
+      },
     ],
   },
 
   // 首頁外觀
   style: {
-    postsPerPage: 6,
-    enableRecentPosts: true,
-  },
+    heroImage: {
+      src: "/assets/layouts/homepage/samhacker_homepage_background.webp",
+    },
+    defaultPostImage:
+      "/assets/layouts/homepage/samhacker_homepage_background.webp",
+      postsPerPage: 6,
+      enableRecentPosts: true,
+    },
 
   // 網站功能
   behavior: {
