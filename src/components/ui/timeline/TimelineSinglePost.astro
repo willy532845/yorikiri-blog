@@ -1,6 +1,7 @@
 ---
 import { Hash } from "lucide-react";
 import { Badge } from "@ui/badge";
+import { withBase } from "@/lib/url";
 
 interface Props {
   postData: any;
@@ -11,7 +12,7 @@ const { postData, postTags } = Astro.props;
 ---
 
 <a
-  href={`/blog/${postData.id}/`}
+  href={withBase(`/blog/${postData.id}/`)}
   class="align-center flex flex-wrap rounded-lg p-4 transition-all"
 >
   <h3

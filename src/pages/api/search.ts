@@ -1,6 +1,7 @@
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 import { getCollection } from "astro:content";
+import { withBase } from "@/lib/url";
 
 // export const prerender = false;
 
@@ -34,7 +35,7 @@ export async function GET({ url }: { url: URL }): Promise<Response> {
     .map((post) => ({
       title: post.data.title,
       slug: post.id,
-      link: `/blog/${post.id}`,
+      link: withBase(`/blog/${post.id}`),
       description: post.data.description,
     }));
   return new Response(JSON.stringify({ results }), {

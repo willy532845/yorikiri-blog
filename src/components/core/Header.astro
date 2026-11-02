@@ -5,6 +5,7 @@ import { Button } from "@ui/button.tsx";
 import { Mail, Info } from "lucide-react";
 import { FAVICON_URL } from "../../consts.ts";
 import { SearchDialog } from "../search/SearchDialog";
+import { withBase } from "@/lib/url";
 
 const links = config.navBar.links;
 ---
@@ -17,7 +18,11 @@ const links = config.navBar.links;
     class="flex h-14 translate-z-0 items-center justify-between rounded-2xl border border-white/10 bg-neutral-900/50 px-4 lg:px-2.5"
   >
     <!-- Logo and Site Title -->
-    <div class="flex items-center gap-2">
+    <a
+      class="flex items-center gap-2"
+      href={withBase("/")}
+      aria-label={SITE_TITLE}
+    >
       <div class="h-9 w-9 overflow-hidden rounded-lg">
         <img
           src={FAVICON_URL}
@@ -25,12 +30,10 @@ const links = config.navBar.links;
           class="h-full w-full object-cover"
         />
       </div>
-      <a class="hidden lg:block" href="/">
-        <h1 class="font-funny text-2xl leading-none text-white capitalize">
-          {SITE_TITLE}
-        </h1>
-      </a>
-    </div>
+      <h1 class="hidden font-funny text-2xl leading-none text-white capitalize lg:block">
+        {SITE_TITLE}
+      </h1>
+    </a>
 
     <!-- Navigation Links -->
     <div class="flex items-center gap-2 lg:gap-4">
@@ -40,7 +43,7 @@ const links = config.navBar.links;
           links.map((link, index) => (
             <div class="flex items-center">
               <a
-                href={link.href}
+                href={withBase(link.href)}
                 class="flex h-6 items-center px-2 text-sm font-medium text-white uppercase transition-colors hover:text-white/80 lg:px-4"
               >
                 {link.title}
@@ -58,7 +61,7 @@ const links = config.navBar.links;
           links.map((link, index) => (
             <div class="flex items-center">
               <a
-                href={link.href}
+                href={withBase(link.href)}
                 class="flex h-6 items-center px-2 text-sm font-medium text-white uppercase transition-colors hover:text-white/80"
               >
                 <link.icon size={16} />
@@ -74,7 +77,7 @@ const links = config.navBar.links;
       <!-- Action Buttons -->
       <div class="hidden items-center gap-2 md:flex">
         <a
-          href="mailto:xux510208@gmail.com"
+          href={`mailto:${config.author.email}`}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -89,7 +92,7 @@ const links = config.navBar.links;
           </Button>
         </a>
 
-        <a href="/about" target="_blank" rel="noopener noreferrer">
+        <a href={withBase("/about/")} target="_blank" rel="noopener noreferrer">
           <Button
             client:load
             variant="ghost"

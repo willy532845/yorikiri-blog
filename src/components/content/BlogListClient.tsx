@@ -10,6 +10,7 @@ import {
   PaginationNext,
 } from "@ui/pagination.tsx";
 import { DEFAULT_POST_IMAGE } from "@/consts.ts";
+import { withBase } from "@/lib/url";
 
 type Post = {
   id: string;
@@ -91,10 +92,10 @@ export default function BlogListClient({
                 title={post.data.title}
                 description={post.data.description}
                 pubDate={post.data.pubDate.toISOString()}
-                heroImage={post.data.heroImage?.src || DEFAULT_POST_IMAGE}
+                heroImage={withBase(post.data.heroImage?.src || DEFAULT_POST_IMAGE)}
                 category={post.data.category}
                 tags={post.data.tags}
-                href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/blog/${post.id}/`}
+                href={withBase(`/blog/${post.id}/`)}
                 isLoading={false}
               />
             ))}

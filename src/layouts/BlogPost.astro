@@ -25,6 +25,7 @@ import Tags from "@components/Tags.astro";
 
 import i18n from "@i18n/translation";
 import I18nKey from "@i18n/i18nKey";
+import { withBase } from "@/lib/url";
 
 interface Props {
   title: string;
@@ -137,7 +138,7 @@ const { title, description, pubDate, updatedDate, heroImage, headings, tags } =
             <Image
               width={1020}
               height={574}
-              src={heroImage}
+              src={typeof heroImage === "string" ? withBase(heroImage) : heroImage}
               alt={`${i18n(I18nKey.post_alt_cover_image)}: ${title}`}
               data-pagefind-meta="image[src], image_alt[alt]"
             />

@@ -11,6 +11,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "@consts";
 import config from "@shConfig";
 import i18n from "@i18n/translation";
 import I18nKey from "@i18n/i18nKey";
+import { withBase } from "@/lib/url";
 
 const posts = (
   await getCollection("blog", ({ data }) => {
@@ -45,12 +46,10 @@ const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
         <div class="flex flex-col items-end justify-end gap-5" slot="right">
           {featuredPost && (
             <a
-              href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/blog/${featuredPost.id}/`}
+              href={withBase(`/blog/${featuredPost.id}/`)}
               class="group flex h-57.5 w-[380px] flex-col justify-end overflow-hidden rounded-xl border border-white/20 bg-black/30 p-6 backdrop-blur-sm transition-all hover:bg-black/50"
               style={{
-                backgroundImage: featuredPost.data.heroImage
-                  ? `url(${featuredPost.data.heroImage.src})`
-                  : config.style.defaultPostImage,
+                backgroundImage: `url("${withBase(featuredPost.data.heroImage?.src || config.style.defaultPostImage)}")`,
                 backgroundSize: "cover",
                 backgroundBlendMode: "darken",
               }}

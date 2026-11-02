@@ -4,6 +4,9 @@ const { backgroundImage = DEFAULT_POST_IMAGE } = Astro.props;
 import { DEFAULT_POST_IMAGE } from "@/consts";
 import { Image } from "astro:assets";
 import config from "@shConfig";
+import { withBase } from "@/lib/url";
+
+const image = backgroundImage ?? config.style.heroImage.src;
 ---
 
 <!-- Hero Section -->
@@ -14,7 +17,7 @@ import config from "@shConfig";
   <!-- Hero background image -->
   <div class="pointer-events-none absolute inset-0">
     <Image
-      src={backgroundImage ?? config.style.heroImage.src}
+      src={typeof image === "string" ? withBase(image) : image}
       inferSize={true}
       alt=""
       class={"w-full h-full object-cover bg-fixed" +

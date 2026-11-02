@@ -8,6 +8,7 @@ import "@pagefind/component-ui/css";
 import BaseMainContent from "@/layouts/BaseMainContent.astro";
 import Sidebar from "@components/Sidebar.astro";
 import config from "@shConfig";
+import { withBase } from "@/lib/url";
 
 const isProd = import.meta.env.PROD;
 ---
@@ -22,13 +23,13 @@ const isProd = import.meta.env.PROD;
       <>
         <link
           slot="head"
-          href="/pagefind/pagefind-component-ui.css"
+          href={withBase("/pagefind/pagefind-component-ui.css")}
           rel="stylesheet"
         />
         <Fragment slot="head">
           <script
             is:inline
-            src="/pagefind/pagefind-component-ui.js"
+            src={withBase("/pagefind/pagefind-component-ui.js")}
             type="module"
           />
         </Fragment>
@@ -38,7 +39,7 @@ const isProd = import.meta.env.PROD;
         <Fragment slot="head">
           <script>import('@pagefind/component-ui');</script>
         </Fragment>
-        <pagefind-config bundle-path="/pagefind/" />
+        <pagefind-config bundle-path={withBase("/pagefind/")} />
       </>
     )
   }

@@ -1,5 +1,6 @@
 import { Button } from "@ui/button";
 import { SearchIcon } from "@ui/animated/search";
+import { withBase } from "@/lib/url";
 // import { Dialog, DialogTrigger, DialogContent } from "@ui/dialog";
 // import { SearchCommandBox } from "./SearchCommandBox";
 // import SearchComponent from "astro-pagefind/components/Search";
@@ -28,7 +29,7 @@ import { SearchIcon } from "@ui/animated/search";
 export function SearchDialog() {
   return (
     <a
-      href="/search"
+      href={withBase("/search")}
       target="_blank"
       rel="noopener noreferrer"
       className="hidden sm:block"

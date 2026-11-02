@@ -470,6 +470,7 @@ const config = defineConfig({
   author: {
     name: "Yorikiri",
     bio: "抽象高中生，日常就是競程和機器人。",
+    email: "willy532845@gmail.com",
     links: [
       {
         icon: "Github",
@@ -485,6 +486,16 @@ const config = defineConfig({
         icon: "Hackmd",
         to: "https://hackmd.io/@willy532845",
         label: "HackMD",
+      },
+      {
+        icon: "Discord",
+        to: "https://discord.com/users/1291305811028480070",
+        label: "Discord：__yorikiri",
+      },
+      {
+        icon: "Mail",
+        to: "mailto:willy532845@gmail.com",
+        label: "willy532845@gmail.com",
       },
     ],
   },

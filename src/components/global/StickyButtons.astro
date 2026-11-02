@@ -1,9 +1,10 @@
 ---
 import ToComment from "./ToComment.astro";
 import ToTop from "./ToTop.astro";
+import { withBase } from "@/lib/url";
 
 // 透過網址是否在/blog/ 判斷是否為部落格頁面
-const IS_BLOG = Astro.url.pathname.startsWith("/blog/");
+const IS_BLOG = Astro.url.pathname.startsWith(withBase("/blog/"));
 ---
 
 <div

@@ -3,6 +3,7 @@ import SiteRuntime from "../widgets/SiteRuntime.astro";
 import SocialLinks from "./SocialLinks.astro";
 
 import config from "@shConfig";
+import { withBase } from "@/lib/url";
 
 let year: number | null = null;
 
@@ -21,7 +22,7 @@ if (config.footer.copyright.yearUpdateStrategy === "fixed") {
   <!-- Background gradients -->
   <div class="absolute inset-0 pointer-events-none">
     <img
-      src="/assets/layouts/footer/footer_background_gradient.webp"
+      src={withBase("/assets/layouts/footer/footer_background_gradient.webp")}
       alt=""
       class="w-full h-full object-cover"
     />
@@ -84,14 +85,14 @@ if (config.footer.copyright.yearUpdateStrategy === "fixed") {
           <div class="text-white text-[10px] leading-normal">
             <p>
               <a
-                href="/"
+                href={withBase("/")}
                 class="underline decoration-solid hover:text-white/80 transition-colors"
               >
                 {config.title}
               </a>
               © <span class="sh-footer-year">{year ? year : ""}</span> by
               <a
-                href="/"
+                href={withBase("/")}
                 class="underline decoration-solid hover:text-white/80 transition-colors"
               >
                 {config.author.name}
@@ -114,7 +115,7 @@ if (config.footer.copyright.yearUpdateStrategy === "fixed") {
           <!-- Social links -->
           <SocialLinks />
 
-          <a href="/sitemap-0.xml">Sitemap</a>
+          <a href={withBase("/sitemap-0.xml")}>Sitemap</a>
         </div>
       </div>
     </div>

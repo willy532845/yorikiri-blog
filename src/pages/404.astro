@@ -6,6 +6,7 @@ import { SEPARATOR, SITE_TITLE } from "@/consts";
 
 import { Kbd, KbdGroup } from "@ui/kbd";
 import config from "@shConfig";
+import { withBase } from "@/lib/url";
 
 import i18n from "@i18n/translation";
 import I18nKey from "@i18n/i18nKey";
@@ -58,7 +59,7 @@ const locale = config.lang || "zh-Hant";
         >
           <img
             id="qr-image"
-            src="/assets/layouts/404/404_qr.svg"
+            src={withBase("/assets/layouts/404/404_qr.svg")}
             class="m-auto"
             alt="Windows Logo"
           />
@@ -102,19 +103,24 @@ const locale = config.lang || "zh-Hant";
     i18n_rickroll: i18n(I18nKey.notfound_please_go_back_rickroll),
     i18n_homo: i18n(I18nKey.notfound_please_go_back_homo),
     i18n_failed_item: i18n(I18nKey.notfound_bsod_failed_item),
+    homeURL: withBase("/"),
+    defaultQrSrc: withBase("/assets/layouts/404/404_qr.svg"),
+    rickrollImageURL: withBase("/assets/layouts/404/404_rickroll.svg"),
+    homoImageURL: withBase("/assets/layouts/404/404_yajyuusenpai.png"),
+    uwuImageURL: withBase("/assets/layouts/404/404_uwu.png"),
   }}
 >
   // 彩蛋邏輯
   const url = window.location.href;
 
-  let qr_img = "/assets/layouts/404/404_qr.svg";
+  let qr_img = defaultQrSrc;
   let description =
     i18n_normal ||
     "如需此問題與可能修正的詳細資訊,請前往 https://api.samhacker.xyz/404 觀看詳細資訊。";
 
   if (enable404EasterEgg) {
     if (url.toLowerCase().includes("rick")) {
-      qr_img = "/assets/layouts/404/404_rickroll.svg";
+      qr_img = rickrollImageURL;
       description =
         i18n_rickroll ||
         "如需此問題與可能修正的詳細資訊,請前往 https://api.samhacker.xyz/rick 觀看驚喜影片";
@@ -122,11 +128,11 @@ const locale = config.lang || "zh-Hant";
       url.toLowerCase().includes("114514") ||
       url.toLowerCase().includes("1919810")
     ) {
-      qr_img = "/assets/layouts/404/404_yajyuusenpai.png";
+      qr_img = homoImageURL;
       description =
         i18n_homo || "如需此問題與可能修正的詳細資訊,請先重新看一遍銀夢(確信";
     } else if (url.toLowerCase().includes("uwu")) {
-      qr_img = "/assets/layouts/404/404_uwu.png";
+      qr_img = uwuImageURL;
     }
   }
 
@@ -161,7 +167,7 @@ const locale = config.lang || "zh-Hant";
         window.clearInterval(intervalId);
         // 監聽鍵盤事件,按下任意鍵返回首頁
         document.addEventListener("keydown", () => {
-          window.location.href = "/";
+          window.location.href = homeURL;
         });
       }
       if (progressElement)

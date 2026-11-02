@@ -2,6 +2,7 @@ import { Card } from "@ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ui/tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/avatar";
 import React, { useMemo, lazy } from "react";
+import { Mail } from "lucide-react";
 import { buttonVariants } from "@ui/button";
 import { cn } from "@/lib/utils";
 
@@ -119,6 +120,8 @@ function AuthorCard({
                         alt=""
                         className="h-4.5 w-4.5 object-contain"
                       />
+                    ) : link.icon === "Mail" ? (
+                      <Mail size={18} />
                     ) : link.icon ? (
                       <DynamicIcon iconName={link.icon} size={18} />
                     ) : null}

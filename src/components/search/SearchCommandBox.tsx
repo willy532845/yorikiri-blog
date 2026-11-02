@@ -7,6 +7,7 @@ import {
   CommandList,
 } from "@ui/command";
 import { useEffect, useRef, useState } from "react";
+import { withBase } from "@/lib/url";
 
 type SearchEntry = {
   title: string;
@@ -83,7 +84,7 @@ export function SearchCommandBox() {
               return {
                 title: data.meta?.title || data.title || "未命名",
                 slug: result.id,
-                link: data.url || `/blog/${result.id}`,
+                link: withBase(data.url || `/blog/${result.id}`),
                 description: data.excerpt || data.meta?.description,
               };
             } catch (err) {
