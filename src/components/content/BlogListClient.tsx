@@ -94,7 +94,7 @@ export default function BlogListClient({
                 heroImage={post.data.heroImage?.src || DEFAULT_POST_IMAGE}
                 category={post.data.category}
                 tags={post.data.tags}
-                href={`${import.meta.env.BASE_URL}blog/${post.id}/`}
+                href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/blog/${post.id}/`}
                 isLoading={false}
               />
             ))}

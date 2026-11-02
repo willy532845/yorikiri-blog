@@ -45,7 +45,7 @@ const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
         <div class="flex flex-col items-end justify-end gap-5" slot="right">
           {featuredPost && (
             <a
-              href={`${import.meta.env.BASE_URL}blog/${featuredPost.id}/`}
+              href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/blog/${featuredPost.id}/`}
               class="group flex h-57.5 w-[380px] flex-col justify-end overflow-hidden rounded-xl border border-white/20 bg-black/30 p-6 backdrop-blur-sm transition-all hover:bg-black/50"
               style={{
                 backgroundImage: featuredPost.data.heroImage
