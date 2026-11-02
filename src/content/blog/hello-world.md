@@ -1,4 +1,5 @@
 ---
+heroImage: "../../assets/helloworldcover.jpg"
 title: "Hello World"
 description: "Yorikiri's Blog 第一篇文章"
 pubDate: 2026-11-01
